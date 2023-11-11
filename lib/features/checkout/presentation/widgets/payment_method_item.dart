@@ -35,6 +35,7 @@ class PaymentMethodItems extends StatelessWidget {
           child: SvgPicture.asset(
            image,
             height: 24.0,
+            fit: BoxFit.scaleDown,
           ),
 
         ),

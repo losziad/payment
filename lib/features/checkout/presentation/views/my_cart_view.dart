@@ -53,7 +53,10 @@ class MyCartView extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          const Divider(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Divider(),
+          ),
           const TotalPriceItem(
             categorie: 'Total',
             price: r'$50.97',
@@ -64,7 +67,7 @@ class MyCartView extends StatelessWidget {
            AppButton(
             titleButton: 'Complete Payment',
              onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDetails(),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  PaymentDetails(),));
              },
           ),
         ],
