@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:payment/features/checkout/presentation/views/payment_details.dart';
 import 'package:payment/features/checkout/presentation/widgets/app_button.dart';
+import 'package:payment/features/checkout/presentation/widgets/build_app_bar.dart';
+import 'package:payment/features/checkout/presentation/widgets/payment_method_list_view.dart';
 import 'package:payment/features/checkout/presentation/widgets/price_items.dart';
 import 'package:payment/features/checkout/presentation/widgets/total_price_items.dart';
 
@@ -10,22 +12,7 @@ class MyCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back_ios_new,
-        ),
-        title: const Text(
-          'My Cart',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 25,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w500,
-            height: 0,
-          ),
-        ),
-      ),
+      appBar: buildAppBar(title: 'My Cart'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,15 +51,45 @@ class MyCartView extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-           AppButton(
+          AppButton(
             titleButton: 'Complete Payment',
-             onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  PaymentDetails(),));
-             },
+            onTap: () {
+
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return const PaymentMethodBottomSheet();
+                },
+              );
+            },
           ),
         ],
       ),
     );
   }
 }
+class PaymentMethodBottomSheet extends StatelessWidget {
+  const PaymentMethodBottomSheet({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+       mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            height: 16.0,
+          ),
+          const PaymentMethodsListView(),
+          const SizedBox(
+            height: 35.0,
+          ),
+          AppButton(titleButton: 'Continues', onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  PaymentDetails(),));
+          }),
+        ],
+      ),
+    );
+  }
+}
